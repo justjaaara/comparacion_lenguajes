@@ -1,4 +1,5 @@
 import scala.io.StdIn._
+import java.time.Instant
 
 case class Ingrediente(nombre: String, cantidad: Double, unidad: String)
 case class Receta(nombre: String, ingredientes: List[Ingrediente])
@@ -45,7 +46,9 @@ val menuSemanal: Map[String, Receta] = Map(   //Map -> diccionario
 )
 
 def verificar_cantidad_ingredientes(ingredientes: List[Ingrediente]): List[Ingrediente] = {
-  ingredientes.map { ingrediente =>  //Cada ingrediente de la lista
+  val startTime = System.nanoTime()
+  
+  val resultado = ingredientes.map { ingrediente =>  //Cada ingrediente de la lista
     inventario.find(_.nombre == ingrediente.nombre) match {    //Mismo que swich
       case Some(item) =>
         val diferencia = ingrediente.cantidad - item.cantidad
@@ -57,9 +60,16 @@ def verificar_cantidad_ingredientes(ingredientes: List[Ingrediente]): List[Ingre
         ingrediente  // No hay nada en inventario
     }
   }.filter(_ != null)
+  
+  val endTime = System.nanoTime()
+  println(f"\nTiempo de verificación de ingredientes: ${(endTime - startTime) / 1_000_000_000.0}%.6f segundos")
+  
+  resultado
 }
 
 def verificarInventario(dia: String): Unit = {
+  val startTime = System.nanoTime()
+  
   menuSemanal.get(dia.toLowerCase) match {
     case Some(receta) =>
       println(s"Receta para $dia: ${receta.nombre}")
@@ -71,10 +81,19 @@ def verificarInventario(dia: String): Unit = {
     case None =>
       println("Día inválido.")
   }
+  
+  val endTime = System.nanoTime()
+  println(f"\nTiempo de verificación de inventario: ${(endTime - startTime) / 1_000_000_000.0}%.6f segundos")
 }
 
 @main
-def main(): Unit =
+def main(): Unit = {
+  val startTimeTotal = System.nanoTime()
+  
   print("Ingrese el día de la semana: ")
   val dia_semana = readLine()
   verificarInventario(dia_semana)
+  
+  val endTimeTotal = System.nanoTime()
+  println(f"\nTiempo total del programa: ${(endTimeTotal - startTimeTotal) / 1_000_000_000.0}%.6f segundos")
+}

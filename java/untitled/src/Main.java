@@ -10,6 +10,8 @@ public class Main {
     static Map<String, Receta> MENU_SEMANAL = new HashMap<>();
 
     public static void main(String[] args) {
+        long startTimeTotal = System.nanoTime();
+        
         cargarMenu();
         cargarInventario();
         Scanner scanner = new Scanner(System.in);
@@ -17,6 +19,9 @@ public class Main {
         String dia = scanner.nextLine().toLowerCase();
         verificarInventario(dia);
         scanner.close();
+        
+        long endTimeTotal = System.nanoTime();
+        System.out.printf("\nTiempo total del programa: %.6f segundos%n", (endTimeTotal - startTimeTotal) / 1_000_000_000.0);
     }
     static void cargarInventario() {
         INVENTARIO.add(new Ingrediente("tomate", 1, "pieza"));
@@ -58,6 +63,8 @@ public class Main {
         )));
     }
     static void verificarInventario(String dia) {
+        long startTime = System.nanoTime();
+        
         if (!MENU_SEMANAL.containsKey(dia)) {
             System.out.println("Día no válido.");
             return;
@@ -66,6 +73,8 @@ public class Main {
         System.out.println("Ingredientes del dia: ");
         receta.ingredientes.forEach(ingrediente -> System.out.println(" " + ingrediente));
 
+        long middleTime = System.nanoTime();
+        
         System.out.println("Ingredientes faltantes: ");
         receta.ingredientes.stream()
             .filter(ingrediente -> {
@@ -81,6 +90,10 @@ public class Main {
                     System.out.println("  Faltan " + diferencia + " " + ingrediente.unidad + " de " + ingrediente.nombre);
                 }
             });
+            
+        long endTime = System.nanoTime();
+        System.out.printf("\nTiempo de verificación de inventario: %.6f segundos%n", (endTime - startTime) / 1_000_000_000.0);
+        System.out.printf("Tiempo de procesamiento de ingredientes faltantes: %.6f segundos%n", (endTime - middleTime) / 1_000_000_000.0);
     }
     static Ingrediente buscarEnInventario(String nombre) {
         for (Ingrediente ingrediente : INVENTARIO) {
