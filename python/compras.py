@@ -5,8 +5,6 @@
 4. Opcional: clasifique los productos por categoría (e.g., frutas, carnes, lácteos). 
 '''
 
-
-
 INVENTARIO = [{'nombre': 'tomate', 'cantidad': 1, 'unidad': 'pieza'},
               {'nombre': 'pasta', 'cantidad': 100, 'unidad': 'gramos'}]
 
@@ -66,7 +64,6 @@ def verificar_cantidad_ingrediente(ingredientes):
             ingredientes_faltantes.append([ingrediente[0], ingrediente[1] - item["cantidad"], ingrediente[2]])
     return ingredientes_faltantes
 
-
 def verificar_inventario(dia_semana):
     receta_a_verificar = MENU_SEMANAL[dia_semana]
 
@@ -75,8 +72,5 @@ def verificar_inventario(dia_semana):
     ingredientes_faltantes = verificar_cantidad_ingrediente(ingredientes_dia)
     print("INGREDIENTES DEL DÍA", list(ingredientes_dia))
     print("INGREDIENTES FALTANTES", list(ingredientes_faltantes))
-
-
-
 
 recibir_menu_semanal()
