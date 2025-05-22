@@ -170,7 +170,3 @@ Scala tiene un rendimiento similar al de Java, con una complejidad algorítmica 
 - Tipado fuerte y validación previa a ejecución
 - Madurez en prácticas de seguridad
 - Infraestructura robusta para control y auditoría del código
-
-## Conclusión
-
-En este ejercicio, **Java** se posiciona como el mejor lenguaje debido a su equilibrio entre rendimiento, escalabilidad y robustez. Aunque Python es ideal para prototipos rápidos y Scala ofrece ventajas en programación funcional, Java sobresale en términos de seguridad, madurez del ecosistema y eficiencia en aplicaciones empresariales. Por lo tanto, es la opción más adecuada para implementar un sistema como el Planificador Funcional de Compras Semanales.
